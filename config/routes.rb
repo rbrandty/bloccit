@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   get 'about' => 'welcome#about'
   get 'faq' => 'welcome#faq'
 
-  resources :posts, only: [:index]
+  resources :posts
 end

@@ -8,6 +8,14 @@ RSpec.describe WelcomeController, type: :controller do
       # #3
       expect(response).to render_template("index")
     end
+
+    it "assigns posts to all posts" do
+      post = Post.create(title: "title", body: "body")
+
+      get :index
+
+      expect(assigns[:posts]).to eq [post]
+    end
   end
 
   describe "GET about" do
