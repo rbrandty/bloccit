@@ -1,30 +1,34 @@
-# #5
- module RandomData
- # #6
-   def self.random_paragraph
-     sentences = []
-     rand(4..6).times do
-       sentences << random_sentence
-     end
+module RandomData
+  def random_paragraph
+    sentences = []
+    rand(4..6).times do
+      sentences << random_sentence
+    end
 
-     sentences.join(" ")
-   end
+    sentences.join(" ")
+  end
 
- # #7
-   def self.random_sentence
-     strings = []
-     rand(3..8).times do
-       strings << random_word
-     end
+  def random_sentence
+    strings = []
+    rand(3..8).times do
+      strings << random_word
+    end
 
-     sentence = strings.join(" ")
-     sentence.capitalize << "."
-   end
+    sentence = strings.join(" ")
+    sentence.capitalize << "."
+  end
 
- # #8
-   def self.random_word
-     letters = ('a'..'z').to_a
-     letters.shuffle!
-     letters[0,rand(3..8)].join
-   end
- end
+  def random_word
+    letters = ('a'..'z').to_a
+    letters.shuffle!
+    letters[0,rand(3..8)].join
+  end
+
+  def random_integer
+    rand(1..100)
+  end
+
+  def random_boolean
+    rand(0..1) == 1
+  end
+end
