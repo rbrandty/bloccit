@@ -24,6 +24,14 @@ module RandomData
     letters[0,rand(3..8)].join
   end
 
+  def random_ad_price
+   rand(1..99)
+  end
+
+  def random_sponsored_post_price
+   rand(10..500)
+  end
+
   def random_integer
     rand(1..100)
   end
