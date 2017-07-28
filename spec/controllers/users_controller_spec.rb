@@ -59,6 +59,6 @@ describe "GET new" do
       post :create, params: { user: new_user_attributes }
       expect(session[:user_id]).to eq assigns(:user).id
     end
-    
+
   end
 end

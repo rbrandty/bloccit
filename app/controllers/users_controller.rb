@@ -3,12 +3,6 @@ class UsersController < ApplicationController
         @user = User.new
     end
 
-    def confirm
-        @user = User.new
-        @user.name = params[:user][:name]
-        @user.email = params[:user][:email]
-    end
-
     def create
         @user = User.new
         @user.name = params[:user][:name]
