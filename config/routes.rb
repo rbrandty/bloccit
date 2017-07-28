@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   post 'confirm' => 'users#confirm'
-  x
+  
   get 'about' => 'welcome#about'
   get 'faq' => 'welcome#faq'
 end
