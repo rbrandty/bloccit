@@ -1,13 +1,14 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
-
-  resources :advertisements
-  resources :questions
   resources :topics do
     resources :posts, except: [:index]
-    resources :sponsored_posts, except: [:index]
   end
 
+# #4
+  resources :posts, only: [] do
+# #5
+    resources :comments, only: [:create, :destroy]
+  end
+  
   resources :users, only: [:new, :create]
   resources :sessions, only: [:new, :create, :destroy]
 
