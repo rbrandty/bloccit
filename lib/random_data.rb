@@ -1,4 +1,15 @@
 module RandomData
+
+  def self.random_name
+    first_name = random_word.capitalize
+    last_name = random_word.capitalize
+    "#{first_name} #{last_name}"
+  end
+
+  def self.random_email
+    "#{random_word}@#{random_word}.#{random_word}"
+  end
+
   def random_paragraph
     sentences = []
     rand(4..6).times do
@@ -25,11 +36,11 @@ module RandomData
   end
 
   def random_ad_price
-   rand(1..99)
+    rand(1..99)
   end
 
   def random_sponsored_post_price
-   rand(10..500)
+    rand(10..500)
   end
 
   def random_integer
