@@ -68,5 +68,5 @@ class TopicsController < ApplicationController
        flash[:error] =  "You must be an admin or moderator to do that."
        redirect_to topics_path
      end
-
+   end
 end
