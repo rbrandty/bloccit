@@ -1,3 +1,5 @@
-## Bloccit: a Reddit replica to teach the fundamentals of web development and Rails.
+## Bloccit: a Reddit replica 
 
-Made with my mentor at [Bloc](http://bloc.io).
+This project teaches the fundamentals of web development and Rails.
+
+Made while being mentored at [Bloc](http://bloc.io).
