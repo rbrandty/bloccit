@@ -4,7 +4,8 @@ RSpec.describe User, type: :model do
   let(:user) { User.create!(name: "bloccit user", email: "user@bloccit.com", password: "password") }
 
   it { is_expected.to have_many(:posts) }
-   it { is_expected.to have_many(:votes) }
+  it { is_expected.to have_many(:votes) }
+  it { is_expected.to have_many(:favorites) }
   it { is_expected.to have_many(:comments) }
 
   it { is_expected.to validate_presence_of(:name) }
@@ -19,71 +20,82 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_secure_password }
   it { is_expected.to validate_length_of(:password).is_at_least(6) }
 
-  describe "attributes" do
-    it "should have name and email attributes with a properly capitalized name" do
-      expect(user).to have_attributes(name: "Bloccit User", email: "user@bloccit.com")
+    describe "attributes" do
+      it "should have name and email attributes with a properly capitalized name" do
+        expect(user).to have_attributes(name: "Bloccit User", email: "user@bloccit.com")
+      end
+    end
+
+    describe "invalid user" do
+      let(:user_with_invalid_name) { User.new(name: "", email: "user@bloccit.com") }
+      let(:user_with_invalid_email) { User.new(name: "Bloccit User", email: "") }
+
+      it "should be an invalid user due to blank name" do
+        expect(user_with_invalid_name).to_not be_valid
+      end
+
+      it "should be an invalid user due to blank email" do
+        expect(user_with_invalid_email).to_not be_valid
+
+      end
+    end
+
+    it "responds to role" do
+      expect(user).to respond_to(:role)
+    end
+
+    it "responds to admin?" do
+      expect(user).to respond_to(:admin?)
+    end
+
+    it "responds to member?" do
+      expect(user).to respond_to(:member?)
     end
   end
 
-  describe "invalid user" do
-    let(:user_with_invalid_name) { User.new(name: "", email: "user@bloccit.com") }
-    let(:user_with_invalid_email) { User.new(name: "Bloccit User", email: "") }
-
-    it "should be an invalid user due to blank name" do
-      expect(user_with_invalid_name).to_not be_valid
+  describe "roles" do
+    it "is member by default" do
+      expect(user.role).to eql("member")
     end
 
-    it "should be an invalid user due to blank email" do
-      expect(user_with_invalid_email).to_not be_valid
-    end
-  end
-
-  it "responds to role" do
-    expect(user).to respond_to(:role)
-  end
-
-  # #2
-  it "responds to admin?" do
-    expect(user).to respond_to(:admin?)
-  end
-
-  # #3
-  it "responds to member?" do
-    expect(user).to respond_to(:member?)
-  end
-end
-
-describe "roles" do
-  # #4
-  it "is member by default" do
-    expect(user.role).to eql("member")
-  end
-
-  # #5
-  context "member user" do
-    it "returns true for #member?" do
-      expect(user.member?).to be_truthy
+    context "member user" do
+      it "returns true for #member?" do
+        expect(user.member?).to be_truthy
+      end
+      it "returns false for #admin?" do
+        expect(user.admin?).to be_falsey
+      end
     end
 
-    it "returns false for #admin?" do
-      expect(user.admin?).to be_falsey
+    context "admin user" do
+      before do
+        user.admin!
+      end
+      it "returns false for #member?" do
+        expect(user.member?).to be_falsey
+      end
+      it "returns true for #admin?" do
+        expect(user.admin?).to be_truthy
+      end
     end
-  end
 
-  # #6
-  context "admin user" do
+  end
+  describe "#favorite_for(post)" do
     before do
-      user.admin!
+      topic = Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)
+      @post = topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user)
     end
 
-    it "returns false for #member?" do
-      expect(user.member?).to be_falsey
+    it "returns `nil` if the user has not favorited the post" do
+
+      expect(user.favorite_for(@post)).to be_nil
     end
 
-    it "returns true for #admin?" do
-      expect(user.admin?).to be_truthy
+    it "returns the appropriate favorite if it exists" do
+      
+      favorite = user.favorites.where(post: @post).create
+
+      expect(user.favorite_for(@post)).to eq(favorite)
     end
   end
-end
-
 end

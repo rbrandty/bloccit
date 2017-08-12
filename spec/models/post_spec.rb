@@ -11,6 +11,7 @@ RSpec.describe Post, type: :model do
 
   it { is_expected.to have_many(:comments) }
   it { is_expected.to have_many(:votes) }
+  it { is_expected.to have_many(:favorites) }
   it { is_expected.to belong_to(:topic) }
   it { is_expected.to belong_to(:user) }
   it { is_expected.to validate_presence_of(:title) }
@@ -73,7 +74,6 @@ RSpec.describe Post, type: :model do
       end
     end
   end
-
 
   describe "#create_vote" do
     it "sets the post up_votes to 1" do
