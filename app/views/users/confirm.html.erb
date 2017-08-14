@@ -7,7 +7,12 @@
     <p>Email: <%= @user.email %></p>
     <table>
       <tr>
-        <td style="padding-right:10px"><%= button_to "Yes", {controller: "users", action: "create", params: params}, class: 'btn btn-success' %></td><td><%= link_to "No", new_user_path, class: 'btn btn-danger' %></td>
+        <td style="padding-right:10px">
+          <%= button_to "Yes", controller: "users", action: "create", params: { user: params.to_unsafe_h[:user] }, class: 'btn btn-success' %>
+        </td>
+        <td>
+          <%= link_to "No", new_user_path, class: 'btn btn-danger' %>
+        </td>
       </tr>
     </table>
   </div>
