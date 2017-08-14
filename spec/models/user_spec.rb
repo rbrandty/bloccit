@@ -20,37 +20,36 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_secure_password }
   it { is_expected.to validate_length_of(:password).is_at_least(6) }
 
-    describe "attributes" do
-      it "should have name and email attributes with a properly capitalized name" do
-        expect(user).to have_attributes(name: "Bloccit User", email: "user@bloccit.com")
-      end
+  describe "attributes" do
+    it "should have name and email attributes with a properly capitalized name" do
+      expect(user).to have_attributes(name: "Bloccit User", email: "user@bloccit.com")
+    end
+  end
+
+  describe "invalid user" do
+    let(:user_with_invalid_name) { User.new(name: "", email: "user@bloccit.com") }
+    let(:user_with_invalid_email) { User.new(name: "Bloccit User", email: "") }
+
+    it "should be an invalid user due to blank name" do
+      expect(user_with_invalid_name).to_not be_valid
     end
 
-    describe "invalid user" do
-      let(:user_with_invalid_name) { User.new(name: "", email: "user@bloccit.com") }
-      let(:user_with_invalid_email) { User.new(name: "Bloccit User", email: "") }
+    it "should be an invalid user due to blank email" do
+      expect(user_with_invalid_email).to_not be_valid
 
-      it "should be an invalid user due to blank name" do
-        expect(user_with_invalid_name).to_not be_valid
-      end
-
-      it "should be an invalid user due to blank email" do
-        expect(user_with_invalid_email).to_not be_valid
-
-      end
     end
+  end
 
-    it "responds to role" do
-      expect(user).to respond_to(:role)
-    end
+  it "responds to role" do
+    expect(user).to respond_to(:role)
+  end
 
-    it "responds to admin?" do
-      expect(user).to respond_to(:admin?)
-    end
+  it "responds to admin?" do
+    expect(user).to respond_to(:admin?)
+  end
 
-    it "responds to member?" do
-      expect(user).to respond_to(:member?)
-    end
+  it "responds to member?" do
+    expect(user).to respond_to(:member?)
   end
 
   describe "roles" do
@@ -78,8 +77,8 @@ RSpec.describe User, type: :model do
         expect(user.admin?).to be_truthy
       end
     end
-
   end
+
   describe "#favorite_for(post)" do
     before do
       topic = Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)
@@ -92,7 +91,7 @@ RSpec.describe User, type: :model do
     end
 
     it "returns the appropriate favorite if it exists" do
-      
+
       favorite = user.favorites.where(post: @post).create
 
       expect(user.favorite_for(@post)).to eq(favorite)
