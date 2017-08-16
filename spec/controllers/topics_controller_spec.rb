@@ -61,7 +61,7 @@ RSpec.describe TopicsController, type: :controller do
         new_name = RandomData.random_sentence
         new_description = RandomData.random_paragraph
 
-        put :update, params: { id: my_topic.id, topic: { name: new_name, description: new_description  } }
+        put :update, params: { id: my_topic.id, topic: { name: new_name, description: new_description } }
         expect(response).to redirect_to(new_session_path)
       end
     end
@@ -134,7 +134,6 @@ RSpec.describe TopicsController, type: :controller do
       it "returns http redirect" do
         new_name = RandomData.random_sentence
         new_description = RandomData.random_paragraph
-
         put :update, params: { id: my_topic.id, topic: { name: new_name, description: new_description } }
         expect(response).to redirect_to(topics_path)
       end

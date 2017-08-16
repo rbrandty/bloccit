@@ -1,4 +1,5 @@
 require 'rails_helper'
+include RandomData
 include SessionsHelper
 
 RSpec.describe FavoritesController, type: :controller do
@@ -37,9 +38,7 @@ RSpec.describe FavoritesController, type: :controller do
 
       it 'creates a favorite for the current user and specified post' do
         expect(my_user.favorites.find_by_post_id(my_post.id)).to be_nil
-
-        post :create, params: { post_id: my_post.id }
-
+        post :create, { post_id: my_post.id }
         expect(my_user.favorites.find_by_post_id(my_post.id)).not_to be_nil
       end
     end
@@ -53,11 +52,8 @@ RSpec.describe FavoritesController, type: :controller do
 
        it 'destroys the favorite for the current user and post' do
          favorite = my_user.favorites.where(post: my_post).create
-
          expect( my_user.favorites.find_by_post_id(my_post.id) ).not_to be_nil
-
-         delete :destroy, params: { post_id: my_post.id, id: favorite.id }
-
+         delete :destroy, { post_id: my_post.id, id: favorite.id }
          expect( my_user.favorites.find_by_post_id(my_post.id) ).to be_nil
        end
      end

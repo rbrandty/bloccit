@@ -3,17 +3,13 @@ require 'rails_helper'
 RSpec.describe WelcomeController, type: :controller do
   describe "GET index" do
     it "renders the index template" do
-      # #2
       get :index
-      # #3
       expect(response).to render_template("index")
     end
 
     it "assigns posts to all posts" do
       post = Post.create(title: "title", body: "body")
-
       get :index
-
       expect(assigns[:posts]).to eq [post]
     end
   end
@@ -31,5 +27,4 @@ RSpec.describe WelcomeController, type: :controller do
       expect(response).to render_template("faq")
     end
   end
-
 end
