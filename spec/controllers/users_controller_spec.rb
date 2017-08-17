@@ -9,7 +9,6 @@ RSpec.describe UsersController, type: :controller do
       password: "blochead",
       password_confirmation: "blochead"
     }
-  end
 end
 
 describe "GET new" do
@@ -22,6 +21,7 @@ describe "GET new" do
     get :new
     expect(assigns(:user)).to_not be_nil
   end
+end
 
   describe "POST create" do
     it "returns an http redirect" do
