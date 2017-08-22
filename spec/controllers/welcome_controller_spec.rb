@@ -8,9 +8,9 @@ RSpec.describe WelcomeController, type: :controller do
     end
 
     it "assigns posts to all posts" do
-      post = Post.create(title: "title", body: "body")
+      post = create(:post)
       get :index
-      expect(assigns[:posts]).to eq [post]
+      expect(assigns[:posts].to_a).to eq [post]
     end
   end
 

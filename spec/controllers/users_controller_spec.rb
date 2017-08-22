@@ -9,19 +9,19 @@ RSpec.describe UsersController, type: :controller do
       password: "blochead",
       password_confirmation: "blochead"
     }
-end
-
-describe "GET new" do
-  it "returns http success" do
-    get :new
-    expect(response).to have_http_status(:success)
   end
 
-  it "initializes a new user" do
-    get :new
-    expect(assigns(:user)).to_not be_nil
+  describe "GET new" do
+    it "returns http success" do
+      get :new
+      expect(response).to have_http_status(:success)
+    end
+
+    it "initializes a new user" do
+      get :new
+      expect(assigns(:user)).to_not be_nil
+    end
   end
-end
 
   describe "POST create" do
     it "returns an http redirect" do

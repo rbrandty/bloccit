@@ -326,17 +326,25 @@ RSpec.describe TopicsController, type: :controller do
     end
 
     describe "POST create" do
+      let(:params) do
+        {
+          topic: {
+            name: RandomData.random_sentence,
+            description: RandomData.random_paragraph
+          }
+        }
+      end
       it "increases the number of topics by 1" do
-        expect{ post :create, topic: {name: RandomData.random_sentence, description: RandomData.random_paragraph} }.to change(Topic,:count).by(1)
+        expect{ post :create, params: params }.to change(Topic,:count).by(1)
       end
 
       it "assigns Topic.last to @topic" do
-        post :create, topic: {name: RandomData.random_sentence, description: RandomData.random_paragraph}
+        post :create, params: params
         expect(assigns(:topic)).to eq Topic.last
       end
 
       it "redirects to the new topic" do
-        post :create, topic: {name: RandomData.random_sentence, description: RandomData.random_paragraph}
+        post :create, params: params
         expect(response).to redirect_to Topic.last
       end
     end

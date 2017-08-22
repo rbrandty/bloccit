@@ -17,7 +17,6 @@ source 'https://rubygems.org'
  group :development do
    # Use sqlite3 as the development database for Active Record
    gem 'sqlite3'
-   gem 'pry-rails'
  end
 
  # Use Puma as the app server
@@ -49,6 +48,7 @@ source 'https://rubygems.org'
    gem 'rails-controller-testing'
    gem 'shoulda'
    gem 'factory_girl_rails', '~> 4.0'
+   gem 'pry-rails'
  end
 
  # Bootstrap Sass CSS gem

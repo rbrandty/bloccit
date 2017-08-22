@@ -17,7 +17,6 @@ class CommentsController < ApplicationController
   end
 
   def create
-
     @post = Post.find(params[:post_id])
     comment = @post.comments.new(comment_params)
     comment.user = current_user
@@ -39,7 +38,6 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:body)
   end
 
-  # #16
   def authorize_user
     comment = Comment.find(params[:id])
     unless current_user == comment.user || current_user.admin?
